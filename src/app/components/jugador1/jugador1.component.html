@@ -6,6 +6,11 @@
 </div>
 <div class="row">
     <div class="container">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="fbs.btnParo(true)">Jugador 1</button> <br> <br>
+    </div>
+</div>
+<div class="row" *ngIf="fbs.parar">
+    <div class="container">
         <h2 class="text-center">Jugador 1</h2>
         <table class="table">
             <thead class="thead-dark">

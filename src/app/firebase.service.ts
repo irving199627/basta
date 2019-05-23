@@ -12,6 +12,8 @@ export class FirebaseService {
   J1TemporalVal: Observable<any[]>;
   J2TemporalVal: Observable<any[]>;
   itemsTemp2: Observable<any[]>;
+  itemsDic: Observable<any[]>;
+  parar = false;
   itemsRef;
   J1 = [];
   J2 = [];
@@ -21,23 +23,40 @@ export class FirebaseService {
   verifica2 = [];
   J1TemporalV = [];
   J2TemporalV = [];
+  diccionario = [];
   vN;
   vA;
   vC;
   vCosa;
   vFof;
   //
+  vN2;
+  vA2;
+  vC2;
+  vCosa2;
+  vFof2;
   nombre;
   apellido;
   ciudad;
   cosa;
   fof;
+  nombre2;
+  apellido2;
+  ciudad2;
+  cosa2;
+  fof2;
   constructor( public db: AngularFireDatabase ) {
     this.items = this.db.list('J1').valueChanges();
     this.items2 = this.db.list('J2').valueChanges();
+    this.itemsDic = this.db.list('diccionario').valueChanges();
     this.itemsTemp1 = this.db.list('J1Temporal').valueChanges();
     this.itemsTemp2 = this.db.list('J2Temporal').valueChanges();
     this.letraRef = db.list('letra');
+
+    this.itemsDic.subscribe(data => {
+      this.diccionario = data;
+      console.log(this.diccionario);
+    });
     this.itemsTemp1.subscribe(data => {
       this.verifica1 = data;
       console.log(data);
@@ -53,6 +72,14 @@ export class FirebaseService {
       console.log(data);
     });
     this.itemsRef = this.db.list('J1');
+  }
+
+  btnParo( estadoBoton ) {
+    const parar = this.db.list('parar');
+    this.parar = estadoBoton;
+    parar.set('parar', {
+      btnParo: estadoBoton
+    });
   }
 
   agregarDiccionario(nombre, apellido, ciudad, cosa, fof) {
@@ -268,6 +295,127 @@ export class FirebaseService {
     // console.log(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
 
   }
+  validarDic(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof) {
+    if (id === 'J1') {
+      const Nombre = this.diccionario.find(element => element.nombre === nom);
+      const apellido = this.diccionario.find(element => element.apellido === ape);
+      const ciudad = this.diccionario.find(element => element.ciudad === ciu);
+      const Cosa = this.diccionario.find(element => element.cosa === cosa);
+      const flor = this.diccionario.find(element => element.fof === fof);
+      if (Nombre) {
+        vNom = 50;
+      }
+      if (apellido) {
+        vA = 50;
+      }
+      if (ciudad) {
+        vC = 50;
+      }
+      if (Cosa) {
+        vCosa = 50;
+      }
+      if (flor) {
+        vfof = 50;
+      }
+      if (!Nombre ) {
+        vNom = 100;
+      }
+      if (!apellido ) {
+        vA = 100;
+      }
+      if (!ciudad ) {
+        vC = 100;
+      }
+      if (!Cosa ) {
+        vCosa = 100;
+      }
+      if (!flor) {
+        vfof = 100;
+      }
+      if (nom === '') {
+        vNom = 0;
+      }
+      if (ape === '') {
+        vA = 0;
+      }
+      if (ciu === '') {
+        vC = 0;
+      }
+      if (cosa === '') {
+        vCosa = 0;
+      }
+      if (fof === '') {
+        vfof = 0;
+      }
+      this.nombre2 = nom;
+      this.apellido2 = ape;
+      this.ciudad2 = ciu;
+      this.cosa2 = cosa;
+      this.fof2 = fof;
+      this.vN2 = vNom;
+      this.vA2 = vA;
+      this.vC2 = vC;
+      this.vCosa2 = vCosa;
+      this.vFof2 = vfof;
+      console.log(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
+    }
+    if (id === 'J2') {
+      const Nombre = this.diccionario.find(element => element.nombre === nom);
+      const apellido = this.diccionario.find(element => element.apellido === ape);
+      const ciudad = this.diccionario.find(element => element.ciudad === ciu);
+      const Cosa = this.diccionario.find(element => element.cosa === cosa);
+      const flor = this.diccionario.find(element => element.fof === fof);
+      if (Nombre) {
+        vNom = 50;
+      }
+      if (apellido) {
+        vA = 50;
+      }
+      if (ciudad) {
+        vC = 50;
+      }
+      if (Cosa) {
+        vCosa = 50;
+      }
+      if (flor) {
+        vfof = 50;
+      }
+      if (!Nombre ) {
+        vNom = 100;
+      }
+      if (!apellido ) {
+        vA = 100;
+      }
+      if (!ciudad ) {
+        vC = 100;
+      }
+      if (!Cosa ) {
+        vCosa = 100;
+      }
+      if (!flor) {
+        vfof = 100;
+      }
+      if (nom === '') {
+        vNom = 0;
+      }
+      if (ape === '') {
+        vA = 0;
+      }
+      if (ciu === '') {
+        vC = 0;
+      }
+      if (cosa === '') {
+        vCosa = 0;
+      }
+      if (fof === '') {
+        vfof = 0;
+      }
+      console.log(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
+      // this.verificarFinal('J1', this.nombre2, this.apellido2, this.ciudad2, this.cosa2, this.fof2, this.vN2,
+      //                     this.vA2, this.vC2, this.vCosa2, this.vFof2);
+      // this.verificarFinal('J2', nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
+    }
+  }
 
   generarLetra() {
    const aLetras = new Array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -276,6 +424,10 @@ export class FirebaseService {
    const letra: Observable<any[]> = this.db.list('letra').valueChanges();
    letra.subscribe(letr => {
       this.letra = letr[0].letra;
+      const l = letr.find(element => element.nombre === this.letra);
+      if (l) {
+        this.letra = `la letra ${letr[0].letra} ya salió, genere otra`;
+      }
    });
   }
   Validar(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
@@ -394,8 +546,11 @@ export class FirebaseService {
         vfof = 0;
       }
       // console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+      // this.validarDic('J1', this.nombre, this.apellido, this.ciudad, this.cosa, this.fof, this.vN,
+      //                     this.vA, this.vC, this.vCosa, this.vFof);
+      // this.validarDic('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
       this.verificarFinal('J1', this.nombre, this.apellido, this.ciudad, this.cosa, this.fof, this.vN,
-                          this.vA, this.vC, this.vCosa, this.vFof);
+      this.vA, this.vC, this.vCosa, this.vFof);
       this.verificarFinal('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
     }
   }
