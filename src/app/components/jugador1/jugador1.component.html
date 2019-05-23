@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col text-center">
+        <h3>{{ fbs.letra }}</h3>
+        <button type="button" class="btn btn-outline-secondary" (click)="fbs.generarLetra()">Generar Letra</button>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <h2 class="text-center">Jugador 1</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Cosa</th>
+                    <th scope="col">Flor o Fruto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let palabra of fbs.J1">
+                    <th>
+                        {{ palabra.nombre }} <br> {{ palabra.puntsN }}
+                    </th>
+                    <th>
+                        {{ palabra.apellido}} <br> {{ palabra.puntsA }}
+                    </th>
+                    <th>
+                        {{ palabra.ciudad}} <br> {{ palabra.puntsC }}
+                    </th>
+                    <th>
+                        {{ palabra.cosa}} <br> {{ palabra.puntsCosa }}
+                    </th>
+                    <th>
+                        {{ palabra.fof}} <br> {{ palabra.puntsFof }}
+                    </th>
+                </tr>
+                <tr>
+                    <th><input type="text" #nombre></th>
+                    <td><input type="text" #apellido></td>
+                    <td><input type="text" #ciudad></td>
+                    <td><input type="text" #cosa></td>
+                    <td><input type="text" #fof></td>
+                </tr>
+                <button type="button" class="btn btn-outline-success" (click)="limpiar('J1', nombre.value, apellido.value, ciudad.value, cosa.value, fof.value)">Enviar</button>
+                <button type="button" class="btn btn-outline-success" (click)="btnParo('J1')">Parar</button>
+            </tbody>
+        </table>
+    </div>
+</div>

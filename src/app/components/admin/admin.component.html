@@ -1,0 +1,90 @@
+<!-- Admin -->
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <!-- <button type="button" class="btn btn-outline-primary btn-block" (click)="js.J1 = true">Jugador 1</button> <br> <br> -->
+            <!-- <button type="button" class="btn btn-outline-primary btn-block" (click)="js.J2 = true">Jugador 2</button> <br> <br> -->
+            <!-- <button type="button" class="btn btn-outline-primary btn-block" (click)="js.admin= true">Administrador</button> <br> <br> -->
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <h2>Aministrador</h2>
+        <h4>J1</h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Cosa</th>
+                    <th scope="col">fof</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of fbs.verifica1">
+                    <td #nomb> {{ item.nombre }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarNom()">Eliminar</button>
+                    </td>
+                    <td>{{ item.apellido }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarape()">Eliminar</button>
+                    </td>
+                    <td> {{ item.ciudad }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarciu()">Eliminar</button>
+                    </td>
+                    <td> {{ item.cosa }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarcosa()">Eliminar</button>
+                    </td>
+                    <td> {{ item.fof }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarfof()">Eliminar</button>
+                    </td>
+                    <button type="button" class="btn btn-outline-success" (click)="verificado1(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Validar</button>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="container">
+        <h4>J2</h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Cosa</th>
+                    <th scope="col">fof</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of fbs.verifica2">
+                    <td>{{ item.nombre }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarNom2()">Eliminar</button>
+                    </td>
+                    <td>{{ item.apellido }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarape2()">Eliminar</button>
+                    </td>
+                    <td>{{ item.ciudad }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarciu2()">Eliminar</button>
+                    </td>
+                    <td>{{ item.cosa }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarcosa2()">Eliminar</button>
+                    </td>
+                    <td>{{ item.fof }}
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarfof2()">Eliminar</button>
+                    </td>
+                    <button type="button" class="btn btn-outline-success" (click)="verificado2(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Validar</button>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
