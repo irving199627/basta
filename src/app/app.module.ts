@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
+import { firebase } from '../environments/firebase';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AdminComponent } from './components/admin/admin.component';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -18,8 +19,8 @@ import { Jugador2Component } from './components/jugador2/jugador2.component';
     Jugador2Component,
   ],
   imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
+  BrowserModule,
+    AngularFireModule.initializeApp(firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule
   ],
