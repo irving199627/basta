@@ -83,8 +83,13 @@ export class AdminComponent implements OnInit {
       this.vFof = 0;
     }
 
+    this.fbs.verificarFinal(nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
+  }
+  almacenar1(nom, ape, ciu, cosa, fof) {
     this.fbs.verificaTemporal1(nom, ape, ciu, cosa, fof);
-    this.fbs.Validar('J1', nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
+  }
+  almacenar2(nom, ape, ciu, cosa, fof) {
+    this.fbs.verificaTemporal2(nom, ape, ciu, cosa, fof);
   }
   verificado2( nom, ape, ciu, cosa, fof) {
 
@@ -108,8 +113,8 @@ export class AdminComponent implements OnInit {
       fof = this.fof;
       this.vFof = 0;
     }
-    this.fbs.verificaTemporal2(nom, ape, ciu, cosa, fof);
-    this.fbs.Validar('J2', nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
+
+    this.fbs.verificaFinal2(nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
     this.fbs.btnParo(false);
     this.fbs.JugarNuevo('J1', false);
     this.fbs.JugarNuevo('J2', false);

@@ -14,7 +14,7 @@
         <h2 class="text-center">Jugador 1</h2>
         <h3 *ngIf="!fbs.J1Activo">¿Jugar de nuevo?</h3>
         <button type="button" class="btn btn-outline-primary btn-block" (click)="fbs.JugarNuevo('J1', true)" *ngIf="!fbs.J1Activo">Si</button>
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="granTotal()" *ngIf="!fbs.J2Activo" data-toggle="modal" data-target="#exampleModal">No</button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="granTotal()" *ngIf="!fbs.J1Activo" data-toggle="modal" data-target="#exampleModal">No</button>
         <table class="table" *ngIf="fbs.J1Activo">
             <thead class="thead-dark">
                 <tr>
@@ -68,7 +68,7 @@
                   </button>
             </div>
             <div class="modal-body">
-                <p>Obtuviste: {{sumaTotal}} puntos</p>
+                <p>Obtuviste: {{fbs.sumaTotal1}} puntos</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reiniciar()">Close</button>

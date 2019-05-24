@@ -4,6 +4,7 @@
     <div class="col text-center">
         <h3>{{ fbs.letra }}</h3>
         <button type="button" class="btn btn-outline-secondary" (click)="fbs.generarLetra()">Generar Letra</button>
+        <h2>{{fbs.ganadorfinal}}</h2>
     </div>
 </div>
 <div class="container">
@@ -47,7 +48,9 @@
                     <td> {{ item.fof }}
                         <button type="button" class="btn btn-outline-danger" (click)="eliminarfof()">Eliminar</button>
                     </td>
+                    <button type="button" class="btn btn-outline-success" (click)="almacenar1(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Guardar</button>
                     <button type="button" class="btn btn-outline-success" (click)="verificado1(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Validar</button>
+
 
                 </tr>
             </tbody>
@@ -83,6 +86,7 @@
                     <td>{{ item.fof }}
                         <button type="button" class="btn btn-outline-danger" (click)="eliminarfof2()">Eliminar</button>
                     </td>
+                    <button type="button" class="btn btn-outline-success" (click)="almacenar2(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Guardar</button>
                     <button type="button" class="btn btn-outline-success" (click)="verificado2(item.nombre, item.apellido, item.ciudad, item.cosa, item.fof)">Validar</button>
 
                 </tr>

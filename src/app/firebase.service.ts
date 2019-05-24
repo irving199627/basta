@@ -14,6 +14,7 @@ export class FirebaseService {
   itemsTemp2: Observable<any[]>;
   itemsDic: Observable<any[]>;
   parar = false;
+  ganadorfinal;
   paraRef: Observable<any[]>;
   estadoJG1;
   estadoJG2;
@@ -35,6 +36,8 @@ export class FirebaseService {
   vCosa;
   vFof;
   //
+  sumaTotal1;
+  sumaTotal2;
   vN2;
   vA2;
   vC2;
@@ -190,79 +193,76 @@ export class FirebaseService {
       });
     // console.log(temporal1);
   }
-  verificarFinal(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
+  verificaFinal2(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
     this.J1TemporalVal = this.db.list('J1TemporalV').valueChanges();
-    this.J2TemporalVal = this.db.list('J2TemporalV').valueChanges();
-
     this.J1TemporalVal.subscribe(el => {
       this.J1TemporalV = el;
-    });
-    this.J2TemporalVal.subscribe(elemento => {
-      this.J2TemporalV = elemento;
-      // console.log(this.J2TemporalV);
-      if (id === 'J1') {
-        const Nombre = this.J2TemporalV.find(element => element.nombre === nom);
-        const apellido = this.J2TemporalV.find(element => element.apellido === ape);
-        const ciudad = this.J2TemporalV.find(element => element.ciudad === ciu);
-        const Cosa = this.J2TemporalV.find(element => element.cosa === cosa);
-        const flor = this.J2TemporalV.find(element => element.fof === fof);
-        if (Nombre) {
-          vN = 50;
-        }
-        if (apellido) {
-          vA = 50;
-        }
-        if (ciudad) {
-          vC = 50;
-        }
-        if (Cosa) {
-          vCosa = 50;
-        }
-        if (flor) {
-          vfof = 50;
-        }
-        if (!Nombre ) {
-          vN = 100;
-        }
-        if (!apellido ) {
-          vA = 100;
-        }
-        if (!ciudad ) {
-          vC = 100;
-        }
-        if (!Cosa ) {
-          vCosa = 100;
-        }
-        if (!flor) {
-          vfof = 100;
-        }
-        if (nom === '') {
-          vN = 0;
-        }
-        if (ape === '') {
-          vA = 0;
-        }
-        if (ciu === '') {
-          vC = 0;
-        }
-        if (cosa === '') {
-          vCosa = 0;
-        }
-        if (fof === '') {
-          vfof = 0;
-        }
-        console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
-        this.almacenar1('J1', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
-        this.agregarDiccionario(nom, ape, ciu, cosa, fof);
-      }
-    });
-    if (id === 'J2') {
-      // console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+        // console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
       const Nombre = this.J1TemporalV.find(element => element.nombre === nom);
       const apellido = this.J1TemporalV.find(element => element.apellido === ape);
       const ciudad = this.J1TemporalV.find(element => element.ciudad === ciu);
       const Cosa = this.J1TemporalV.find(element => element.cosa === cosa);
       const flor = this.J1TemporalV.find(element => element.fof === fof);
+      if (Nombre) {
+          vN = 50;
+        }
+      if (apellido) {
+          vA = 50;
+        }
+      if (ciudad) {
+          vC = 50;
+        }
+      if (Cosa) {
+          vCosa = 50;
+        }
+      if (flor) {
+          vfof = 50;
+        }
+      if (!Nombre ) {
+          vN = 100;
+        }
+      if (!apellido ) {
+          vA = 100;
+        }
+      if (!ciudad ) {
+          vC = 100;
+        }
+      if (!Cosa ) {
+          vCosa = 100;
+        }
+      if (!flor) {
+          vfof = 100;
+        }
+      if (nom === '') {
+          vN = 0;
+        }
+      if (ape === '') {
+          vA = 0;
+        }
+      if (ciu === '') {
+          vC = 0;
+        }
+      if (cosa === '') {
+          vCosa = 0;
+        }
+      if (fof === '') {
+          vfof = 0;
+        }
+      console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+      this.almacenar1('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+      this.agregarDiccionario(nom, ape, ciu, cosa, fof);
+    });
+  }
+  verificarFinal(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
+    this.J2TemporalVal = this.db.list('J2TemporalV').valueChanges();
+    this.J2TemporalVal.subscribe(elemento => {
+      this.J2TemporalV = elemento;
+      console.log(this.J2TemporalV);
+      const Nombre = this.J2TemporalV.find(element => element.nombre === nom);
+      const apellido = this.J2TemporalV.find(element => element.apellido === ape);
+      const ciudad = this.J2TemporalV.find(element => element.ciudad === ciu);
+      const Cosa = this.J2TemporalV.find(element => element.cosa === cosa);
+      const flor = this.J2TemporalV.find(element => element.fof === fof);
       if (Nombre) {
         vN = 50;
       }
@@ -309,133 +309,13 @@ export class FirebaseService {
         vfof = 0;
       }
       console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
-      this.almacenar1('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+      this.almacenar1('J1', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
       this.agregarDiccionario(nom, ape, ciu, cosa, fof);
-    }
+    });
     // console.log(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
 
   }
-  validarDic(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof) {
-    if (id === 'J1') {
-      const Nombre = this.diccionario.find(element => element.nombre === nom);
-      const apellido = this.diccionario.find(element => element.apellido === ape);
-      const ciudad = this.diccionario.find(element => element.ciudad === ciu);
-      const Cosa = this.diccionario.find(element => element.cosa === cosa);
-      const flor = this.diccionario.find(element => element.fof === fof);
-      if (Nombre) {
-        vNom = 50;
-      }
-      if (apellido) {
-        vA = 50;
-      }
-      if (ciudad) {
-        vC = 50;
-      }
-      if (Cosa) {
-        vCosa = 50;
-      }
-      if (flor) {
-        vfof = 50;
-      }
-      if (!Nombre ) {
-        vNom = 100;
-      }
-      if (!apellido ) {
-        vA = 100;
-      }
-      if (!ciudad ) {
-        vC = 100;
-      }
-      if (!Cosa ) {
-        vCosa = 100;
-      }
-      if (!flor) {
-        vfof = 100;
-      }
-      if (nom === '') {
-        vNom = 0;
-      }
-      if (ape === '') {
-        vA = 0;
-      }
-      if (ciu === '') {
-        vC = 0;
-      }
-      if (cosa === '') {
-        vCosa = 0;
-      }
-      if (fof === '') {
-        vfof = 0;
-      }
-      this.nombre2 = nom;
-      this.apellido2 = ape;
-      this.ciudad2 = ciu;
-      this.cosa2 = cosa;
-      this.fof2 = fof;
-      this.vN2 = vNom;
-      this.vA2 = vA;
-      this.vC2 = vC;
-      this.vCosa2 = vCosa;
-      this.vFof2 = vfof;
-      console.log(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
-    }
-    if (id === 'J2') {
-      const Nombre = this.diccionario.find(element => element.nombre === nom);
-      const apellido = this.diccionario.find(element => element.apellido === ape);
-      const ciudad = this.diccionario.find(element => element.ciudad === ciu);
-      const Cosa = this.diccionario.find(element => element.cosa === cosa);
-      const flor = this.diccionario.find(element => element.fof === fof);
-      if (Nombre) {
-        vNom = 50;
-      }
-      if (apellido) {
-        vA = 50;
-      }
-      if (ciudad) {
-        vC = 50;
-      }
-      if (Cosa) {
-        vCosa = 50;
-      }
-      if (flor) {
-        vfof = 50;
-      }
-      if (!Nombre ) {
-        vNom = 100;
-      }
-      if (!apellido ) {
-        vA = 100;
-      }
-      if (!ciudad ) {
-        vC = 100;
-      }
-      if (!Cosa ) {
-        vCosa = 100;
-      }
-      if (!flor) {
-        vfof = 100;
-      }
-      if (nom === '') {
-        vNom = 0;
-      }
-      if (ape === '') {
-        vA = 0;
-      }
-      if (ciu === '') {
-        vC = 0;
-      }
-      if (cosa === '') {
-        vCosa = 0;
-      }
-      if (fof === '') {
-        vfof = 0;
-      }
-      console.log(id, nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
-      // this.verificarFinal('J1', this.nombre2, this.apellido2, this.ciudad2, this.cosa2, this.fof2, this.vN2,
-      //                     this.vA2, this.vC2, this.vCosa2, this.vFof2);
-      // this.verificarFinal('J2', nom, ape, ciu, cosa, fof, vNom, vA, vC, vCosa, vfof);
-    }
-  }
+
 
   generarLetra() {
    const aLetras = new Array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -446,126 +326,6 @@ export class FirebaseService {
       this.letra = letr[0].letra;
    });
   }
-  Validar(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
-    if (id === 'J1') {
-      const Nombre = this.J1.find(element => element.nombre === nom);
-      const apellido = this.J1.find(element => element.apellido === ape);
-      const ciudad = this.J1.find(element => element.ciudad === ciu);
-      const csa = this.J1.find(element => element.cosa === cosa);
-      const Fof = this.J1.find(element => element.fof === fof);
-      if (Nombre && nom !== '') {
-        vN = 50;
-      }
-      if (!Nombre && nom !== '') {
-        vN = 100;
-      }
-      if (apellido) {
-        vA = 50;
-        console.log(this.J1TemporalV);
-      }
-      if (!apellido && ape !== '') {
-        vA = 100;
-      }
-      if (ciudad) {
-        vC = 50;
-      }
-      if (!ciudad && ciu !== '') {
-        vC = 100;
-      }
-      if (csa) {
-        vCosa = 50;
-      }
-      if (!csa && cosa !== '') {
-        vCosa = 100;
-      }
-      if (Fof) {
-        vfof = 50;
-      }
-      if (!Fof && fof !== '') {
-        vfof = 100;
-      }
-      if (nom === '') {
-        vN = 0;
-      }
-      if (ape === '') {
-        vA = 0;
-      }
-      if (ciu === '') {
-        vC = 0;
-      }
-      if (cosa === '') {
-        vCosa = 0;
-      }
-      if (fof === '') {
-        vfof = 0;
-      }
-      this.nombre = nom;
-      this.apellido = ape;
-      this.ciudad = ciu;
-      this.cosa = cosa;
-      this.fof = fof;
-      this.vN = vN;
-      this.vA = vA;
-      this.vC = vC;
-      this.vCosa = vCosa;
-      this.vFof = vfof;
-    } else {
-      const Nombre = this.J2.find(element => element.nombre === nom);
-      const apellido = this.J2.find(element => element.apellido === ape);
-      const ciudad = this.J2.find(element => element.ciudad === ciu);
-      const csa = this.J2.find(element => element.cosa === cosa);
-      const Fof = this.J2.find(element => element.fof === fof);
-      if (!Nombre) {
-        vN = 100;
-      }
-      if (Nombre) {
-        vN = 50;
-      }
-      if (apellido) {
-        vA = 50;
-        console.log(this.J1TemporalV);
-      }
-      if (!apellido) {
-        vA = 100;
-      }
-      if (ciudad) {
-        vC = 50;
-      }
-      if (!ciudad) {
-        vC = 100;
-      }
-      if (csa) {
-        vCosa = 50;
-      }
-      if (!csa) {
-        vCosa = 100;
-      }
-      if (Fof) {
-        vfof = 50;
-      }
-      if (!Fof) {
-        vfof = 100;
-      }
-      if (nom === '') {
-        vN = 0;
-      }
-      if (ape === '') {
-        vA = 0;
-      }
-      if (ciu === '') {
-        vC = 0;
-      }
-      if (cosa === '') {
-        vCosa = 0;
-      }
-      if (fof === '') {
-        vfof = 0;
-      }
-      this.verificarFinal('J1', this.nombre, this.apellido, this.ciudad, this.cosa, this.fof, this.vN,
-      this.vA, this.vC, this.vCosa, this.vFof);
-      this.verificarFinal('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
-    }
-  }
   JugarNuevo(id, estado) {
     if (id === 'J1') {
       const actualizarEdo = this.db.list('J1Activo');
@@ -574,6 +334,20 @@ export class FirebaseService {
     if (id === 'J2') {
       const actualizarEdo = this.db.list('J2Activo');
       actualizarEdo.set('jugando', {jugando: estado });
+    }
+  }
+  ganador(ptsJ1, ptsJ2) {
+    if (ptsJ1 > ptsJ2) {
+      console.log(`El jugador 1 ganó con ${ptsJ1} puntos.`);
+      return `El jugador 1 ganó con ${ptsJ1} puntos.`;
+    }
+    if (ptsJ1 < ptsJ2) {
+      console.log(`El jugador 2 ganó con ${ptsJ2} puntos.`);
+      return `El jugador 2 ganó con ${ptsJ2} puntos.`;
+    }
+    if (ptsJ1 === ptsJ2) {
+      console.log(`Empate con ${ptsJ1} puntos.`);
+      return `Empate con ${ptsJ1} puntos.`;
     }
   }
 }

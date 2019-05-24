@@ -15,7 +15,6 @@ export class Jugador1Component implements OnInit {
   @ViewChild('cosa') cosa: ElementRef;
   @ViewChild('fof') fof: ElementRef;
   J1Temporal = [];
-  sumaTotal;
   constructor( private renderer: Renderer2,
                public fbs: FirebaseService,
                public db: AngularFireDatabase ) { this.btnParo(); }
@@ -28,8 +27,8 @@ export class Jugador1Component implements OnInit {
     this.fbs.J1.forEach(x => {
       sumaTot = sumaTot + x.suma;
     });
-    this.sumaTotal = sumaTot;
-    console.log(this.sumaTotal);
+    this.fbs.sumaTotal1 = sumaTot;
+    console.log(this.fbs.sumaTotal1);
   }
   limpiar(id, nombre, apellido, ciudad, cosa, fof) {
     if (id === 'J1') {
@@ -64,6 +63,7 @@ export class Jugador1Component implements OnInit {
   reiniciar() {
     const itemsRef = this.db.list('J1');
     itemsRef.remove();
+    this.fbs.ganadorfinal = this.fbs.ganador(this.fbs.sumaTotal1, this.fbs.sumaTotal2);
   }
   btnParo() {
       setInterval(() => {

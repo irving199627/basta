@@ -13,7 +13,7 @@ export class Jugador2Component implements OnInit {
   @ViewChild('ciudad') ciudad: ElementRef;
   @ViewChild('cosa') cosa: ElementRef;
   @ViewChild('fof') fof: ElementRef;
-  sumaTotal;
+  ganador;
   constructor( private renderer: Renderer2,
                public fbs: FirebaseService,
                public db: AngularFireDatabase ) { this.btnParo(); }
@@ -26,8 +26,8 @@ export class Jugador2Component implements OnInit {
     this.fbs.J2.forEach(x => {
       sumaTot = sumaTot + x.suma;
     });
-    this.sumaTotal = sumaTot;
-    console.log(this.sumaTotal);
+    this.fbs.sumaTotal2 = sumaTot;
+    console.log(this.fbs.sumaTotal2);
   }
   limpiar(nombre, apellido, ciudad, cosa, fof) {
       this.renderer.setProperty(this.nombre.nativeElement, 'value', '');
@@ -62,6 +62,7 @@ export class Jugador2Component implements OnInit {
 
     const itemsRef = this.db.list('J2');
     itemsRef.remove();
+    this.fbs.ganadorfinal = this.fbs.ganador(this.fbs.sumaTotal1, this.fbs.sumaTotal2);
   }
   btnParo() {
     setInterval(() => {
