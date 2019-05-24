@@ -15,12 +15,21 @@ export class Jugador1Component implements OnInit {
   @ViewChild('cosa') cosa: ElementRef;
   @ViewChild('fof') fof: ElementRef;
   J1Temporal = [];
-
+  sumaTotal;
   constructor( private renderer: Renderer2,
                public fbs: FirebaseService,
-               public db: AngularFireDatabase ) { }
+               public db: AngularFireDatabase ) { this.btnParo(); }
 
   ngOnInit() {
+  }
+  granTotal() {
+    // console.log(this.fbs.J1);
+    let sumaTot = 0;
+    this.fbs.J1.forEach(x => {
+      sumaTot = sumaTot + x.suma;
+    });
+    this.sumaTotal = sumaTot;
+    console.log(this.sumaTotal);
   }
   limpiar(id, nombre, apellido, ciudad, cosa, fof) {
     if (id === 'J1') {
@@ -52,11 +61,19 @@ export class Jugador1Component implements OnInit {
       this.fbs.verificar(nomb, apel, ciud, Cosa, Fof);
      }
   }
-  btnParo(id) {
-      this.renderer.setAttribute(this.nombre.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.apellido.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.ciudad.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.cosa.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.fof.nativeElement, 'disabled', 'true'); // bloquear campos
+  reiniciar() {
+    const itemsRef = this.db.list('J1');
+    itemsRef.remove();
+  }
+  btnParo() {
+      setInterval(() => {
+        if (this.fbs.parar) {
+          this.renderer.setAttribute(this.nombre.nativeElement, 'disabled', 'true'); // bloquear campos
+          this.renderer.setAttribute(this.apellido.nativeElement, 'disabled', 'true'); // bloquear campos
+          this.renderer.setAttribute(this.ciudad.nativeElement, 'disabled', 'true'); // bloquear campos
+          this.renderer.setAttribute(this.cosa.nativeElement, 'disabled', 'true'); // bloquear campos
+          this.renderer.setAttribute(this.fof.nativeElement, 'disabled', 'true'); // bloquear campos
+        }
+      }, 1000);
   }
 }

@@ -82,18 +82,7 @@ export class AdminComponent implements OnInit {
       fof = this.fof;
       this.vFof = 0;
     }
-    // let nomb = nom;
-    // let apel = ape;
-    // let ciud = ciu;
-    // let Cosa = cosa;
-    // let Fof = fof;
-    // nomb = nom[0].toUpperCase() + nom.slice(1);
-    // apel = ape[0].toUpperCase() + ape.slice(1);
-    // ciud = ciu[0].toUpperCase() + ciu.slice(1);
-    // Cosa = cosa[0].toUpperCase() + cosa.slice(1);
-    // Fof = fof[0].toUpperCase() + fof.slice(1);
 
-    // console.log(nomb);
     this.fbs.verificaTemporal1(nom, ape, ciu, cosa, fof);
     this.fbs.Validar('J1', nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
   }
@@ -121,5 +110,8 @@ export class AdminComponent implements OnInit {
     }
     this.fbs.verificaTemporal2(nom, ape, ciu, cosa, fof);
     this.fbs.Validar('J2', nom, ape, ciu, cosa, fof, this.vN, this.vA, this.vC, this.vCosa, this.vFof);
+    this.fbs.btnParo(false);
+    this.fbs.JugarNuevo('J1', false);
+    this.fbs.JugarNuevo('J2', false);
   }
 }

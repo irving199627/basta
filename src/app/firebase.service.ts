@@ -14,10 +14,15 @@ export class FirebaseService {
   itemsTemp2: Observable<any[]>;
   itemsDic: Observable<any[]>;
   parar = false;
+  paraRef: Observable<any[]>;
+  estadoJG1;
+  estadoJG2;
   itemsRef;
   J1 = [];
   J2 = [];
   letra;
+  J1Activo;
+  J2Activo;
   letraRef;
   verifica1 = [];
   verifica2 = [];
@@ -52,6 +57,20 @@ export class FirebaseService {
     this.itemsTemp1 = this.db.list('J1Temporal').valueChanges();
     this.itemsTemp2 = this.db.list('J2Temporal').valueChanges();
     this.letraRef = db.list('letra');
+    this.estadoJG2 = this.db.list('J2Activo').valueChanges();
+    this.estadoJG2.subscribe(jugador => {
+        this.J2Activo = jugador[0].jugando;
+      });
+
+    this.estadoJG1 = this.db.list('J1Activo').valueChanges();
+    this.estadoJG1.subscribe(jugador => {
+        this.J1Activo = jugador[0].jugando;
+      });
+
+    this.paraRef = this.db.list('parar').valueChanges();
+    this.paraRef.subscribe(data => {
+        this.parar = data[0].btnParo;
+    });
 
     this.itemsDic.subscribe(data => {
       this.diccionario = data;
@@ -76,7 +95,6 @@ export class FirebaseService {
 
   btnParo( estadoBoton ) {
     const parar = this.db.list('parar');
-    this.parar = estadoBoton;
     parar.set('parar', {
       btnParo: estadoBoton
     });
@@ -105,7 +123,8 @@ export class FirebaseService {
         puntsA,
         puntsC,
         puntsCosa,
-        puntsFof
+        puntsFof,
+        suma: puntsA + puntsN + puntsC + puntsCosa + puntsFof
   });
     } else {
       const itemsRef2 = this.db.list('J2');
@@ -119,7 +138,8 @@ export class FirebaseService {
         puntsA,
         puntsC,
         puntsCosa,
-        puntsFof
+        puntsFof,
+        suma: puntsA + puntsN + puntsC + puntsCosa + puntsFof
   });
     }
     // this.renderer.setAttribute(this.nombre.nativeElement, 'disabled', 'true'); // bloquear campos
@@ -424,10 +444,6 @@ export class FirebaseService {
    const letra: Observable<any[]> = this.db.list('letra').valueChanges();
    letra.subscribe(letr => {
       this.letra = letr[0].letra;
-      const l = letr.find(element => element.nombre === this.letra);
-      if (l) {
-        this.letra = `la letra ${letr[0].letra} ya salió, genere otra`;
-      }
    });
   }
   Validar(id, nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof) {
@@ -545,13 +561,19 @@ export class FirebaseService {
       if (fof === '') {
         vfof = 0;
       }
-      // console.log(nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
-      // this.validarDic('J1', this.nombre, this.apellido, this.ciudad, this.cosa, this.fof, this.vN,
-      //                     this.vA, this.vC, this.vCosa, this.vFof);
-      // this.validarDic('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
       this.verificarFinal('J1', this.nombre, this.apellido, this.ciudad, this.cosa, this.fof, this.vN,
       this.vA, this.vC, this.vCosa, this.vFof);
       this.verificarFinal('J2', nom, ape, ciu, cosa, fof, vN, vA, vC, vCosa, vfof);
+    }
+  }
+  JugarNuevo(id, estado) {
+    if (id === 'J1') {
+      const actualizarEdo = this.db.list('J1Activo');
+      actualizarEdo.set('jugando', {jugando: estado });
+    }
+    if (id === 'J2') {
+      const actualizarEdo = this.db.list('J2Activo');
+      actualizarEdo.set('jugando', {jugando: estado });
     }
   }
 }

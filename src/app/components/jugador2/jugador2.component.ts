@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, } from '@angular/core';
 import { FirebaseService } from '../../firebase.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-jugador2',
@@ -12,10 +13,21 @@ export class Jugador2Component implements OnInit {
   @ViewChild('ciudad') ciudad: ElementRef;
   @ViewChild('cosa') cosa: ElementRef;
   @ViewChild('fof') fof: ElementRef;
+  sumaTotal;
   constructor( private renderer: Renderer2,
-               public fbs: FirebaseService ) { }
+               public fbs: FirebaseService,
+               public db: AngularFireDatabase ) { this.btnParo(); }
 
   ngOnInit() {
+  }
+  granTotal() {
+    // console.log(this.fbs.J1);
+    let sumaTot = 0;
+    this.fbs.J2.forEach(x => {
+      sumaTot = sumaTot + x.suma;
+    });
+    this.sumaTotal = sumaTot;
+    console.log(this.sumaTotal);
   }
   limpiar(nombre, apellido, ciudad, cosa, fof) {
       this.renderer.setProperty(this.nombre.nativeElement, 'value', '');
@@ -46,12 +58,21 @@ export class Jugador2Component implements OnInit {
       this.fbs.verificar2(nomb, apel, ciud, Cosa, Fof);
 
   }
+  reiniciar2() {
+
+    const itemsRef = this.db.list('J2');
+    itemsRef.remove();
+  }
   btnParo() {
-      this.renderer.setAttribute(this.nombre.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.apellido.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.ciudad.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.cosa.nativeElement, 'disabled', 'true'); // bloquear campos
-      this.renderer.setAttribute(this.fof.nativeElement, 'disabled', 'true'); // bloquear campos
+    setInterval(() => {
+      if (this.fbs.parar) {
+        this.renderer.setAttribute(this.nombre.nativeElement, 'disabled', 'true'); // bloquear campos
+        this.renderer.setAttribute(this.apellido.nativeElement, 'disabled', 'true'); // bloquear campos
+        this.renderer.setAttribute(this.ciudad.nativeElement, 'disabled', 'true'); // bloquear campos
+        this.renderer.setAttribute(this.cosa.nativeElement, 'disabled', 'true'); // bloquear campos
+        this.renderer.setAttribute(this.fof.nativeElement, 'disabled', 'true'); // bloquear campos
+      }
+    }, 1000);
   }
 
 }

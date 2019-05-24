@@ -1,18 +1,21 @@
 <div class="row">
     <div class="col text-center">
         <h3>{{ fbs.letra }}</h3>
-        <button type="button" class="btn btn-outline-secondary" (click)="fbs.generarLetra()">Generar Letra</button>
+
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="container">
         <button type="button" class="btn btn-outline-primary btn-block" (click)="fbs.btnParo(true)">Jugador 1</button> <br> <br>
     </div>
-</div>
-<div class="row" *ngIf="fbs.parar">
+</div> -->
+<div class="row">
     <div class="container">
         <h2 class="text-center">Jugador 1</h2>
-        <table class="table">
+        <h3 *ngIf="!fbs.J1Activo">¿Jugar de nuevo?</h3>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="fbs.JugarNuevo('J1', true)" *ngIf="!fbs.J1Activo">Si</button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="granTotal()" *ngIf="!fbs.J2Activo" data-toggle="modal" data-target="#exampleModal">No</button>
+        <table class="table" *ngIf="fbs.J1Activo">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre</th>
@@ -20,6 +23,7 @@
                     <th scope="col">Ciudad</th>
                     <th scope="col">Cosa</th>
                     <th scope="col">Flor o Fruto</th>
+                    <th scope="col">Suma</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +43,7 @@
                     <th>
                         {{ palabra.fof}} <br> {{ palabra.puntsFof }}
                     </th>
+                    <th>{{ palabra.suma }}</th>
                 </tr>
                 <tr>
                     <th><input type="text" #nombre></th>
@@ -48,8 +53,27 @@
                     <td><input type="text" #fof></td>
                 </tr>
                 <button type="button" class="btn btn-outline-success" (click)="limpiar('J1', nombre.value, apellido.value, ciudad.value, cosa.value, fof.value)">Enviar</button>
-                <button type="button" class="btn btn-outline-success" (click)="btnParo('J1')">Parar</button>
+                <button type="button" class="btn btn-outline-success" (click)="fbs.btnParo(true)">Parar</button>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Suma Total</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <p>Obtuviste: {{sumaTotal}} puntos</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reiniciar()">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
     </div>
 </div>

@@ -1,7 +1,16 @@
 <div class="row">
+    <div class="col text-center">
+        <h3>{{ fbs.letra }}</h3>
+
+    </div>
+</div>
+<div class="row">
     <div class="container">
         <h2 class="text-center">Jugador 2</h2>
-        <table class="table">
+        <h3 *ngIf="!fbs.J2Activo">¿Jugar de nuevo?</h3>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="fbs.JugarNuevo('J2', true)" *ngIf="!fbs.J2Activo">Si</button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="granTotal()" *ngIf="!fbs.J2Activo" data-toggle="modal" data-target="#exampleModal2">No</button>
+        <table class="table" *ngIf="fbs.J2Activo">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre</th>
@@ -29,6 +38,7 @@
                     <th>
                         {{palabra.fof}} <br> {{ palabra.puntsFof }}
                     </th>
+                    <th>{{ palabra.suma }}</th>
                 </tr>
                 <tr>
                     <th><input type="text" #nombre></th>
@@ -39,8 +49,27 @@
                 </tr>
 
             </tbody>
+            <button type="button" class="btn btn-outline-success" (click)="limpiar(nombre.value, apellido.value, ciudad.value, cosa.value, fof.value)">Enviar</button>
+            <button type="button" class="btn btn-outline-success" (click)="btnParo()">Parar</button>
         </table>
-        <button type="button" class="btn btn-outline-success" (click)="limpiar(nombre.value, apellido.value, ciudad.value, cosa.value, fof.value)">Enviar</button>
-        <button type="button" class="btn btn-outline-success" (click)="btnParo()">Parar</button>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Suma Total</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Obtuviste: {{sumaTotal}} puntos</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reiniciar2()">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
     </div>
 </div>
